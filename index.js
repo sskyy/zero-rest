@@ -73,16 +73,20 @@ module.exports = {
           }
           args.unshift(event)
           ZERO.mlog("REST","fire" , event ,args)
-          req.bus.fire.apply(req.bus, args ).then( function(){
-            //use respond module to help us respond
+
+          req.bus.fcall.apply( req.bus, ["rest.fire"].concat(args).concat(function(){
+            return this.fire.apply(this, args ).then( function(){
+              //use respond module to help us respond
 //            ZERO.mlog("REST","retriving data" , event ,req.bus.data( event ))
-            var result = _.cloneDeep(req.bus.data( event ))
-            if( instanceMethod =='update' ){
-              result = result.pop()
-            }
-            req.bus.data("respond.data", result)
-            next()
-          })
+              var result = _.cloneDeep(req.bus.data( event ))
+              if( instanceMethod =='update' ){
+                result = result.pop()
+              }
+              req.bus.data("respond.data", result)
+              next()
+            })
+          }))
+
         })
       })
 
