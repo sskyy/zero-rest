@@ -12,7 +12,6 @@ var restMap = {
 function hierarchyObject(val){
   var output = _.cloneDeep( val )
   _.forEach(output, function( v, k){
-    console.log("has dot",k,k)
     if( k.indexOf(".")>0 ){
       var i= output,stack = k.split("."),n
       while( n = stack.shift() ){
