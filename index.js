@@ -34,6 +34,7 @@ function hierarchyObject(val){
  */
 module.exports = {
   deps : ['respond','model','request'],
+  keywords : ['count'],
   /**
    * 如果模块声明的 model 中的 rest 属性为 true, 则自动为该 model 添加 rest 接口。
    * @param module
@@ -63,6 +64,11 @@ module.exports = {
         //add request handler to send model operation result to browser
         //TODO separate the respond handler from route would be better?
         root.dep.request.add( url, function crud( req, res, next){
+
+          //Notice we jump keywords here
+          if( req.param('id') && root.keywords.indexOf(req.param('id'))!==-1){
+            return next()
+          }
 
           //TODO convert params which key has '.' to object
           var args = [hierarchyObject(_.merge(req.params, req.body, req.query))]
