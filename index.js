@@ -77,7 +77,7 @@ module.exports = {
             args.unshift({id: req.param("id")})
           }
           args.unshift(event)
-          ZERO.mlog("REST","fire" , event ,args)
+          root.dep.logger.log("fire" , event ,args)
 
           req.bus.fcall.apply( req.bus, ["rest.fire"].concat(args).concat(function(){
             return this.fire.apply(this, args ).then( function( modelMethodResult ){
@@ -89,6 +89,10 @@ module.exports = {
               }
               req.bus.data("respond.data", result)
               next()
+            }).catch(function(e){
+              //still goes next, but we must a reject promise so respond module may catch
+              next()
+              return Promise.reject(e)
             })
           }))
 
@@ -101,7 +105,7 @@ module.exports = {
         //rest api handled already
         if( req.bus.data('respond.data')) return next()
 
-        ZERO.mlog("REST", "rest request handler take action", req.bus._id)
+        root.dep.logger.log("rest request handler take action", req.bus._id)
         var action = req.param('action')
         req.bus.fire( modelName + "." + req.param('action'), _.omit(_.merge(req.params, req.body, req.query),['action']))
 

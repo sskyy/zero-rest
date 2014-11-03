@@ -1,11 +1,12 @@
 {
   "name": "zero-rest",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "zero module",
   "zero": {
     "dependencies": {
       "request": "^0.0.1",
       "respond": "^0.0.1",
+      "logger": "^0.0.1",
       "model": "^0.0.1"
     },
     "name": "rest"
