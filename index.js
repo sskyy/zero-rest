@@ -82,13 +82,13 @@ module.exports = {
           req.bus.fcall.apply( req.bus, ["rest.fire"].concat(args).concat(function(){
             return this.fire.apply(this, args ).then( function( modelMethodResult ){
               //use respond module to help us respond
-//            ZERO.mlog("REST","retriving data" , event ,req.bus.data( event ))
               var result = _.cloneDeep( modelMethodResult['model.'+instanceMethod+"."+modelName])
               if( instanceMethod =='update' ){
                 result = result.pop()
               }
               req.bus.data("respond.data", result)
               next()
+              return result
             }).catch(function(e){
               //still goes next, but we must a reject promise so respond module may catch
               next()
