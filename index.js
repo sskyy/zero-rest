@@ -80,13 +80,14 @@ module.exports = {
           root.dep.logger.log("fire" , event ,args)
 
           req.bus.fcall.apply( req.bus, ["rest.fire"].concat(args).concat(function(){
-            return this.fire.apply(this, args ).then( function( modelMethodResult ){
+            var bus = this
+            return bus.fire.apply(bus, args ).then( function( modelMethodResult ){
               //use respond module to help us respond
               var result = _.cloneDeep( modelMethodResult['model.'+instanceMethod+"."+modelName])
               if( instanceMethod =='update' ){
                 result = result.pop()
               }
-              req.bus.data("respond.data", result)
+              bus.data("respond.data", result)
               next()
               return result
             }).catch(function(e){
