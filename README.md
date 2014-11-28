@@ -1,6 +1,6 @@
 # zero-rest #
 
-This module will automatically generate REST api for you model which has mark `rest`
+Automatically generate REST api for model which has attribute `rest`.
 
 ## Usage ##
 

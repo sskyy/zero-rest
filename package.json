@@ -1,7 +1,10 @@
 {
   "name": "zero-rest",
-  "version": "0.0.14",
-  "description": "zero module",
+  "version": "0.0.15",
+  "keywords": [
+    "zero module"
+  ],
+  "description": "Automatically generate REST api for model which has attribute `rest`.",
   "zero": {
     "dependencies": {
       "request": "^0.0.1",
