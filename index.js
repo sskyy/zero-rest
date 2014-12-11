@@ -2,6 +2,7 @@ var _  = require('lodash')
 var tosource = require('tosource')
 
 var restMap = {
+  'count': 'get',
   'find': 'get',
   'findOne': 'get',
   'update' : 'put',
@@ -57,6 +58,8 @@ module.exports = {
 
         if(['find' ,'create'].indexOf(instanceMethod)!==-1){
           url = requestMethod.toUpperCase() + ' /'+modelName
+        }else if( instanceMethod =='count'){
+          url = requestMethod.toUpperCase() + " /" + modelName + "/count"
         }else{
           url = requestMethod.toUpperCase() + ' /'+modelName + '/:id'
         }
