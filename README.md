@@ -1,6 +1,6 @@
 # zero-rest #
 
-Automatically generate REST api for model which has attribute `rest`.
+Automatically generating REST api for model which has attribute `rest`.
 
 ## Usage ##
 
@@ -17,7 +17,7 @@ Automatically generate REST api for model which has attribute `rest`.
 }
 ```
 
-2. mark your model as:
+2. mark your model like:
 
 ```
 module.models = [{
@@ -29,8 +29,8 @@ module.models = [{
 }]
 ```
 
-With `rest:true` as the post model above, rest module will generate `GET /post`, `GET /post/:id`, `POST /post`, `PUT /post/:id` and `DELETE /post/:id` for post model.
-With `rest:[]` as user model, rest will only generate `GET /user`, `GET /user/:id`. Below is the mapping for action and url:
+With `rest` set to true as the `post` model, API of `GET /post`, `GET /post/:id`, `POST /post`, `PUT /post/:id` and `DELETE /post/:id` will be generated.
+With `rest` set to a array as `user` model, rest will only generate certain APIs. Below is a map of which API will be generated.
 
 ```
 find : GET /model
