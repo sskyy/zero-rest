@@ -78,6 +78,18 @@ module.exports = {
           if( instanceMethod == 'update' ){
             //TODO only allow update on id
             args.unshift({id: req.param("id")})
+          }else if( instanceMethod == 'find' ){
+            _.forEach( args[0], function(v , k){
+              //deal with array
+              console.log( k, v)
+              if( /\[.+\]/.test(v ) ){
+                try{
+                  args[0][k]  = JSON.parse(v)
+                }catch(e){
+                  console.log("not valid json",v,k)
+                }
+              }
+            })
           }
           args.unshift(event)
           root.dep.logger.log("fire" , event ,args)
